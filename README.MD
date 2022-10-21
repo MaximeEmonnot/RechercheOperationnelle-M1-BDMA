@@ -38,7 +38,8 @@ Setup maven
 ```
 wget https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.zip -UseBasicParsing -O maven.zip
 Expand-Archive .\maven.zip .
-cp .\RechercheOperationnelle-M1-BDMA\confing\settings.xml $Env:userprofile\.m2\settings.xml
+mkdir $Env:userprofile\.m2
+cp .\RechercheOperationnelle-M1-BDMA\config\settings.xml $Env:userprofile\.m2\settings.xml
 $env:Path += 'U:\apache-maven-3.8.6\bin'
 ```
 Only use last line if you have already downloaded
