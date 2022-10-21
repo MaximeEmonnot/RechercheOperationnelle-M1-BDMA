@@ -4,18 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4d1974b-88ba-4260-805d-64bb3329b5fd" name="Changes" comment="removed java 11 stuff">
-      <change afterPath="$PROJECT_DIR$/instances/f1_tap_3_400.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/instances/f1_tap_9_400.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/instances/f4_tap_0_20.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/instances/f4_tap_1_400.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/instances/f4_tap_4_400.dat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/alexscode/teaching/tap/Objectives.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/README.MD" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alexscode/teaching/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alexscode/teaching/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/alexscode/teaching/tap/TAPSolver.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alexscode/teaching/tap/TAPSolver.java" afterDir="false" />
-    </list>
+    <list default="true" id="c4d1974b-88ba-4260-805d-64bb3329b5fd" name="Changes" comment="instances and demo code" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -86,7 +75,7 @@
       <updated>1666339495420</updated>
       <workItem from="1666339496963" duration="6200000" />
       <workItem from="1666352093342" duration="4249000" />
-      <workItem from="1666358111263" duration="1405000" />
+      <workItem from="1666358111263" duration="1818000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1666343569504</created>
@@ -123,7 +112,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666357426475</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="instances and demo code">
+      <created>1666359745867</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1666359745867</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,6 +142,7 @@
     <MESSAGE value="technical bull****" />
     <MESSAGE value="more technical bull****" />
     <MESSAGE value="removed java 11 stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="removed java 11 stuff" />
+    <MESSAGE value="instances and demo code" />
+    <option name="LAST_COMMIT_MESSAGE" value="instances and demo code" />
   </component>
 </project>
