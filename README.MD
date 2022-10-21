@@ -34,15 +34,19 @@ Download Project
 git clone https://github.com/AlexChanson/RechercheOperationnelle-M1-BDMA
 ```
 
-Setup maven
+Setup maven (Only use last line if you have already downloaded)
 ```
 wget https://dlcdn.apache.org/maven/maven-3/3.8.6/binaries/apache-maven-3.8.6-bin.zip -UseBasicParsing -O maven.zip
 Expand-Archive .\maven.zip .
-mkdir $Env:userprofile\.m2
-cp .\RechercheOperationnelle-M1-BDMA\config\settings.xml $Env:userprofile\.m2\settings.xml
 $env:Path += 'U:\apache-maven-3.8.6\bin'
 ```
-Only use last line if you have already downloaded
+
+Set Proxy for maven
+```shell
+mkdir $Env:userprofile\.m2
+cp .\RechercheOperationnelle-M1-BDMA\config\settings.xml $Env:userprofile\.m2\settings.xml
+```
+
 
 Check if it's working with `mvn --version`
 
