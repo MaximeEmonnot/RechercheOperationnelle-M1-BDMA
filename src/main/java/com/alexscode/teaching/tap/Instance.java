@@ -60,7 +60,7 @@ public class Instance {
             }
             i++;
         }
-
-        return new Instance(nbActions, distances, costsOrig, relevancesOrig, time, distance, Path.of(path).getFileName().toString());
+        String filename = (new File(path)).getName();
+        return new Instance(nbActions, distances, costsOrig, relevancesOrig, time, distance, filename);
     }
 }

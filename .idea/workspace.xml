@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c4d1974b-88ba-4260-805d-64bb3329b5fd" name="Changes" comment="technical bull****">
-      <change beforePath="$PROJECT_DIR$/README.MD" beforeDir="false" afterPath="$PROJECT_DIR$/README.MD" afterDir="false" />
+    <list default="true" id="c4d1974b-88ba-4260-805d-64bb3329b5fd" name="Changes" comment="more technical bull****">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/alexscode/teaching/tap/Instance.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/alexscode/teaching/tap/Instance.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,7 +57,7 @@
       <option name="presentableId" value="Default" />
       <updated>1666339495420</updated>
       <workItem from="1666339496963" duration="6200000" />
-      <workItem from="1666352093342" duration="2380000" />
+      <workItem from="1666352093342" duration="4174000" />
     </task>
     <task id="LOCAL-00001" summary="Initial commit">
       <created>1666343569504</created>
@@ -79,7 +80,14 @@
       <option name="project" value="LOCAL" />
       <updated>1666354609308</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="more technical bull****">
+      <created>1666355278473</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1666355278473</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -100,6 +108,7 @@
     <MESSAGE value="Initial commit" />
     <MESSAGE value="fixing pom" />
     <MESSAGE value="technical bull****" />
-    <option name="LAST_COMMIT_MESSAGE" value="technical bull****" />
+    <MESSAGE value="more technical bull****" />
+    <option name="LAST_COMMIT_MESSAGE" value="more technical bull****" />
   </component>
 </project>
