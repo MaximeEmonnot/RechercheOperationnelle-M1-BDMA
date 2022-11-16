@@ -17,6 +17,23 @@ You will document your work and reasoning behind your algorithm(s) in a lab repo
 Each 2-person team will be graded on a 2 or 3 pages (hard limit) report, the code quality, and the performance of the heuristics (runtime, objective).
 Your heuristics will be tested on other instances as well as the 5 provided in this repository. 
 
+## Exemple (Naive Solution)
+Create a class `TestNaif` that implements the `TAPSolver` interface. 
+As you can see in the interface we need to implement a solve method with the following signature `public List<Integer> solve(Instance ist)`. 
+To construct the solution we will simply chain the queries in the order they appear in the `Instance` until we violate one epsilon constraint.
+
+To do so we can use the `Objectives` object:
+```java
+        List<Integer> demo = new ArrayList<>();
+        Objectives obj = new Objectives(ist);
+        
+        int q_idx = 0;
+        
+        while (obj.distance(demo) < ist.getMaxDistance() && obj.time(demo) < ist.getTimeBudget()){
+            demo.add(q_idx++);
+        }
+        return demo.subList(0, demo.size() - 1);
+```
 
 ## Using your own PC
 You should have Maven installed and an updated JDK.
