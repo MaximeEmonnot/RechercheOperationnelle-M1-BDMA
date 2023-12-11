@@ -1,0 +1,1 @@
+mvn package && echo "Finished Compilation" && java -cp target/TP-RO-M1-BDMA-1.0-SNAPSHOT.jar com.alexscode.teaching.Main && echo "Finished Execution" && pause

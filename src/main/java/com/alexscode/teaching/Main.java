@@ -3,6 +3,7 @@ package com.alexscode.teaching;
 import com.alexscode.teaching.tap.Instance;
 import com.alexscode.teaching.tap.Objectives;
 import com.alexscode.teaching.tap.TAPSolver;
+import com.alexscode.teaching.tap.TestNaif;
 
 import java.util.List;
 import java.util.TreeSet;
