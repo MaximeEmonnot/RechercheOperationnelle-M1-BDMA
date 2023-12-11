@@ -1,9 +1,6 @@
 package com.alexscode.teaching;
 
-import com.alexscode.teaching.tap.Instance;
-import com.alexscode.teaching.tap.Objectives;
-import com.alexscode.teaching.tap.TAPSolver;
-import com.alexscode.teaching.tap.TestNaif;
+import com.alexscode.teaching.tap.*;
 
 import java.util.List;
 import java.util.TreeSet;
@@ -17,7 +14,7 @@ public class Main {
         Instance f1_3_big = Instance.readFile("./instances/f1_tap_3_400.dat", 6600, 540);
         Instance f1_9_big = Instance.readFile("./instances/f1_tap_9_400.dat", 6600, 540);
 
-        TAPSolver solver = new TestNaif();
+        TAPSolver solver = new NearestNeighbor();
         Instance inst = f4_small;
 
         Objectives obj = new Objectives(inst);
