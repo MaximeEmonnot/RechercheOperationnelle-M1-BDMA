@@ -32,7 +32,7 @@ public class NearestNeighbor implements TAPSolver {
                 int index = Integer.parseInt(indexStr);
                 int currentIndex = Integer.parseInt(node);
 
-                double ratio = ist.distances[currentIndex][index] * ist.costs[index] / ist.interest[index];
+                double ratio = ist.costs[index] / ist.interest[index];
         
                 if(ratio < nearestRatio)
                 {

@@ -64,16 +64,22 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        Instance f4_small = Instance.readFile("./instances/f4_tap_0_20.dat", 330, 27);
+        Instance f4_small      = Instance.readFile("./instances/f4_tap_0_20.dat",   330,  27);
+        Instance tap_15_small  = Instance.readFile("./instances/tap_15_60.dat",     330,  27);
 
-        Instance f4_1_big = Instance.readFile("./instances/f4_tap_1_400.dat", 6600, 540);
-        Instance f4_4_big = Instance.readFile("./instances/f4_tap_4_400.dat", 6600, 540);
-        Instance f1_3_big = Instance.readFile("./instances/f1_tap_3_400.dat", 6600, 540);
-        Instance f1_9_big = Instance.readFile("./instances/f1_tap_9_400.dat", 6600, 540);
+        Instance tap_10_medium = Instance.readFile("./instances/tap_10_100.dat",   1200, 150);
+        Instance tap_11_medium = Instance.readFile("./instances/tap_11_250.dat",   1200, 250);
+        Instance tap_13_medium = Instance.readFile("./instances/tap_13_150.dat",   1200, 150);
+        
+        Instance f4_1_big      = Instance.readFile("./instances/f4_tap_1_400.dat", 6600, 540);
+        Instance f4_4_big      = Instance.readFile("./instances/f4_tap_4_400.dat", 6600, 540);
+        Instance f1_3_big      = Instance.readFile("./instances/f1_tap_3_400.dat", 6600, 540);
+        Instance f1_9_big      = Instance.readFile("./instances/f1_tap_9_400.dat", 6600, 540);
+        Instance tap_14_big    = Instance.readFile("./instances/tap_14_400.dat",   6600, 540);
 
         TAPSolver solver = new NearestNeighbor();
-        Instance  inst   = f4_small;
-        int       nTests = 50;
+        Instance  inst   = f1_3_big;
+        int       nTests = 1000;
        
         runTests(solver, inst, nTests);
     }
