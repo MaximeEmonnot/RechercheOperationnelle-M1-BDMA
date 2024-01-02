@@ -78,7 +78,7 @@ public class Main {
         Instance tap_14_big    = Instance.readFile("./instances/tap_14_400.dat",   6600, 540);
 
         TAPSolver solver = new NearestNeighbor();
-        Instance  inst   = f1_3_big;
+        Instance  inst   = tap_14_big;
         int       nTests = 1000;
        
         runTests(solver, inst, nTests);
