@@ -25,17 +25,18 @@ public class NearestNeighbor implements TAPSolver {
         &&   (obj.time(output) < ist.timeBudget && obj.distance(output) < ist.maxDistance))
         {
             String nearestNode = new String();
-            double nearestDistance = Double.MAX_VALUE;
+            double nearestRatio = Double.MAX_VALUE;
             
             for(String indexStr : unvisitedIndices)
             {
                 int index = Integer.parseInt(indexStr);
                 int currentIndex = Integer.parseInt(node);
 
-                double distance = ist.distances[currentIndex][index];
-                if(distance < nearestDistance)
+                double ratio = ist.distances[currentIndex][index] * ist.costs[index] / ist.interest[index];
+        
+                if(ratio < nearestRatio)
                 {
-                    nearestDistance = distance;
+                    nearestRatio = ratio;
                     nearestNode = indexStr;
                 }
             }

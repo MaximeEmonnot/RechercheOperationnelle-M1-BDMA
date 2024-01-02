@@ -6,6 +6,63 @@ import java.util.List;
 import java.util.TreeSet;
 
 public class Main {
+    private static void runTests(TAPSolver solver, Instance inst)
+    {
+      runTests(solver, inst, 1);
+    }
+    private static void runTests(TAPSolver solver, Instance inst, int nTests)
+    {
+      Objectives obj = new Objectives(inst);
+    
+      double sumInterest = 0.0;
+      double minInterest = Double.MAX_VALUE;
+      double maxInterest = Double.MIN_VALUE;
+      double sumTime     = 0.0;
+      double minTime     = Double.MAX_VALUE;
+      double maxTime     = Double.MIN_VALUE;
+      double sumDistance = 0.0;
+      double minDistance = Double.MAX_VALUE;
+      double maxDistance = Double.MIN_VALUE;
+      int nFeasable      = 0;
+
+      for(int i = 0; i < nTests; i++)
+      {
+        System.out.println("### TEST N°" + i + " ###");    
+
+        List<Integer> solution = solver.solve(inst);
+        
+        double  interest    = obj.interest(solution);
+        double  time        = obj.time(solution);
+        double  distance    = obj.distance(solution);
+        boolean bIsFeasable = isSolutionFeasible(inst, solution); 
+
+        System.out.println("Interet: "   + interest);
+        System.out.println("Temps: "     + time);
+        System.out.println("Distance: "  + distance);
+        System.out.println("Faisable ? " + bIsFeasable);
+
+        sumInterest += interest;
+        if(interest < minInterest) minInterest = interest;
+        if(interest > maxInterest) maxInterest = interest;
+        sumTime     += time;
+        if(time < minTime)         minTime     = time;
+        if(time > maxTime)         maxTime     = time;
+        sumDistance += distance;
+        if(distance < minDistance) minDistance = distance;
+        if(distance > maxDistance) maxDistance = distance;
+        nFeasable   += bIsFeasable ? 1 : 0;
+      }
+      System.out.println("\n\n===========================================================================================");
+      System.out.println(" ### RESUME DES TESTS ###");
+      System.out.println(" Nombre de tests :   " + nTests);
+      System.out.println(" Interet moyen :     " + sumInterest / nTests     + " (Min : " + minInterest + " - Max : " + maxInterest + ")");
+      System.out.println(" Temps moyen :       " + sumTime / nTests         + " (Min : " + minTime     + " - Max : " + maxTime     + ")");
+      System.out.println(" Distance moyenne :  " + sumDistance / nTests     + " (Min : " + minDistance + " - Max : " + maxDistance + ")");
+      System.out.println(" Ratio faisabilité : " + nFeasable * 100 / nTests + "%");
+      System.out.println("===========================================================================================");
+
+    }
+
     public static void main(String[] args) {
         Instance f4_small = Instance.readFile("./instances/f4_tap_0_20.dat", 330, 27);
 
@@ -15,16 +72,10 @@ public class Main {
         Instance f1_9_big = Instance.readFile("./instances/f1_tap_9_400.dat", 6600, 540);
 
         TAPSolver solver = new NearestNeighbor();
-        Instance inst = f4_small;
-
-        Objectives obj = new Objectives(inst);
-        List<Integer> solution = solver.solve(inst);
-
-        System.out.println("Interet: " + obj.interest(solution));
-        System.out.println("Temps: " + obj.time(solution));
-        System.out.println("Distance: " + obj.distance(solution));
-
-        System.out.println("Feasible ? " + isSolutionFeasible(inst, solution));
+        Instance  inst   = f4_small;
+        int       nTests = 50;
+       
+        runTests(solver, inst, nTests);
     }
 
     public static boolean isSolutionFeasible(Instance ist, List<Integer> sol){
