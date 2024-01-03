@@ -2,6 +2,7 @@ package com.alexscode.teaching;
 
 import com.alexscode.teaching.tap.*;
 
+import java.sql.SQLNonTransientException;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -77,7 +78,7 @@ public class Main {
         Instance f1_9_big      = Instance.readFile("./instances/f1_tap_9_400.dat", 6600, 540);
         Instance tap_14_big    = Instance.readFile("./instances/tap_14_400.dat",   6600, 540);
 
-        TAPSolver solver = new SimulatedAnnealing();
+        TAPSolver solver = new Tabou();
         Instance  inst   = f4_small;
         int       nTests = 1000;
        
