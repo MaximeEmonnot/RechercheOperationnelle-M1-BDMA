@@ -42,14 +42,14 @@ public class Main {
         System.out.println("Faisable ? " + bIsFeasable);
 
         sumInterest += interest;
-        if(interest < minInterest) minInterest = interest;
-        if(interest > maxInterest) maxInterest = interest;
+        if(interest < minInterest && bIsFeasable) minInterest = interest;
+        if(interest > maxInterest && bIsFeasable) maxInterest = interest;
         sumTime     += time;
-        if(time < minTime)         minTime     = time;
-        if(time > maxTime)         maxTime     = time;
+        if(time < minTime && bIsFeasable)         minTime     = time;
+        if(time > maxTime && bIsFeasable)         maxTime     = time;
         sumDistance += distance;
-        if(distance < minDistance) minDistance = distance;
-        if(distance > maxDistance) maxDistance = distance;
+        if(distance < minDistance && bIsFeasable) minDistance = distance;
+        if(distance > maxDistance && bIsFeasable) maxDistance = distance;
         nFeasable   += bIsFeasable ? 1 : 0;
       }
       System.out.println("\n\n===========================================================================================");
@@ -77,8 +77,8 @@ public class Main {
         Instance f1_9_big      = Instance.readFile("./instances/f1_tap_9_400.dat", 6600, 540);
         Instance tap_14_big    = Instance.readFile("./instances/tap_14_400.dat",   6600, 540);
 
-        TAPSolver solver = new NearestNeighbor();
-        Instance  inst   = tap_14_big;
+        TAPSolver solver = new SimulatedAnnealing();
+        Instance  inst   = f4_small;
         int       nTests = 1000;
        
         runTests(solver, inst, nTests);
