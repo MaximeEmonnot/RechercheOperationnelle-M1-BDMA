@@ -79,7 +79,7 @@ public class Main {
         Instance tap_14_big    = Instance.readFile("./instances/tap_14_400.dat",   6600, 540);
 
         TAPSolver solver = new Tabou();
-        Instance  inst   = f4_small;
+        Instance  inst   = tap_15_small;
         int       nTests = 1000;
        
         runTests(solver, inst, nTests);

@@ -1,6 +1,7 @@
 package com.alexscode.teaching.tap;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.alexscode.teaching.utilities.ReversiblePair;
@@ -12,22 +13,24 @@ public class Tabou implements TAPSolver{
     List<Integer> currentSolution = generateInitialSolution(ist);
 
     List<Integer> bestSolution = new ArrayList<>(currentSolution);
-    double bestSolutionCost = obj.distance(bestSolution);
+    double bestSolutionCost = obj.interest(bestSolution);
 
-    int tabuListSize = ist.size;
-    List<ReversiblePair<Integer, Integer>> tabuList = new ArrayList<>();
-
-    int maxIteration = 1;
+    int tabuListSize = ist.size / 10;
+    LinkedList<ReversiblePair<Integer, Integer>> tabuList = new LinkedList<>();
+    int maxIteration = ist.size * 10;
 
     for (int i=0 ; i < maxIteration; i++) {
       List<Integer> neighbor = findBestNeighbor(currentSolution, tabuList, obj, ist);
 
-      double neighborCost = obj.distance(neighbor);
+      double neighborCost = obj.interest(neighbor);
 
-      if (neighborCost < bestSolutionCost) {
+      if (neighborCost > bestSolutionCost) {
         bestSolution = new ArrayList<>(neighbor);
         bestSolutionCost = neighborCost;
       }
+
+      if(tabuList.size() > tabuListSize)
+        tabuList.removeFirst();
 
       currentSolution = neighbor;
     }
@@ -46,7 +49,7 @@ private List<Integer> findBestNeighbor(List<Integer> solution, List<ReversiblePa
     int oldindex = 0;
     int newindex = 0;
 
-    double bestNeighborCost = Double.MAX_VALUE;
+    double bestNeighborCost = Double.MIN_VALUE;
     List<Integer> bestNeighbor = new ArrayList<>();
     for (int i = 0; i < solution.size(); i++) {
         for (int j = 0; j < ist.size; j++) {
@@ -60,12 +63,13 @@ private List<Integer> findBestNeighbor(List<Integer> solution, List<ReversiblePa
                 // Check if the neighbor is in the tabu list
               if(!tabuList.contains(new ReversiblePair<Integer, Integer>(currentIndex, j)))
               {
-              double neighborCost = obj.distance(neighbor);
+              double neighborCost = obj.interest(neighbor);
 
                 // Update the best neighbor if the cost is lower
-              if (neighborCost < bestNeighborCost) {
+              if(neighborCost > bestNeighborCost && obj.distance(neighbor) < ist.maxDistance && obj.time(neighbor) < ist.timeBudget) 
+              {
                 bestNeighborCost = neighborCost;
-                bestNeighbor = new ArrayList<>(neighbor);
+                bestNeighbor = neighbor;
                 oldindex = currentIndex;
                 newindex = j;
               }
