@@ -16,27 +16,30 @@ public class Branch implements TAPSolver
       for(int j = 0; j < ist.size; j++)
         ratios[i][j] = (ist.distances[i][j] * ist.costs[j]) / ist.interest[j]; 
     
-    
-    double lowerBound = calculateLowerBound(ist, obj, ratios, output);
-
-    recursiveBranch(ist, obj, ratios, output, lowerBound);
-
-    return output;
-  }
-
-  private void recursiveBranch(Instance ist, Objectives obj, double[][] ratios, List<Integer> sequence, double lowerBound)
-  {
-    for(int i = 0; i < ist.size; i++)
+    while(obj.time(output) < ist.timeBudget && obj.distance(output) < ist.maxDistance)
     {
-      if(!sequence.contains(i))
+      double lowerBound = calculateLowerBound(ist, obj, ratios, output);
+      int    index      = -1;
+      for(int i = 0; i < ist.size; i++)
       {
-        List<Integer> newSequence = new ArrayList<>(sequence);
-        newSequence.add(i);
-        double newLowerBound = calculateLowerBound(ist, obj, ratios, newSequence);
-        if(lowerBound < newLowerBound)
-          recursiveBranch(ist, obj, ratios, newSequence, newLowerBound);
+        if(!output.contains(i))
+        {
+          List<Integer> sequence = new ArrayList<Integer>(output);
+          sequence.add(i);
+          double nextLowerBound = calculateLowerBound(ist, obj, ratios, sequence);
+          if(nextLowerBound >= lowerBound)
+          {
+            lowerBound = nextLowerBound;
+            index = i;
+          }
+        }
       }
+      if (index >= 0)
+        output.add(index);
+      else break;
     }
+    
+    return output.subList(0, output.size() - 1);
   }
 
   private double calculateLowerBound(Instance ist, Objectives obj,  double[][] ratios, List<Integer> startingSequence)

@@ -64,6 +64,27 @@ public class Main {
 
     }
 
+    private static void runTimedTest(TAPSolver solver, Instance inst)
+    {     
+      Objectives obj         = new Objectives(inst);
+
+      long before = System.currentTimeMillis();
+      List<Integer> solution = solver.solve(inst);
+      long after = System.currentTimeMillis();
+
+      double  interest       = obj.interest(solution);
+      double  time           = obj.time(solution);
+      double  distance       = obj.distance(solution);
+      boolean bIsFeasable    = isSolutionFeasible(inst, solution); 
+      System.out.println("\n\n===========================================================================================");
+      System.out.println("Interet: "            + interest);
+      System.out.println("Temps: "              + time);
+      System.out.println("Distance: "           + distance);
+      System.out.println("Faisable ? "          + bIsFeasable);
+      System.out.println("Durée d'exécution : " + (after - before) + "ms");
+      System.out.println("===========================================================================================");
+    }
+
     public static void main(String[] args) {
         Instance f4_small      = Instance.readFile("./instances/f4_tap_0_20.dat",   330,  27);
         Instance tap_15_small  = Instance.readFile("./instances/tap_15_60.dat",     330,  27);
@@ -79,10 +100,12 @@ public class Main {
         Instance tap_14_big    = Instance.readFile("./instances/tap_14_400.dat",   6600, 540);
 
         TAPSolver solver = new Branch();
-        Instance  inst   = f4_small;
-        int       nTests = 1;
-       
-        runTests(solver, inst, nTests);
+        Instance  inst   = f4_4_big;
+        
+        runTimedTest(solver, inst);
+        
+        //int       nTests = 1;
+        //runTests(solver, inst, nTests);
     }
 
     public static boolean isSolutionFeasible(Instance ist, List<Integer> sol){
