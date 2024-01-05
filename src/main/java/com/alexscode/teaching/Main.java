@@ -3,6 +3,7 @@ package com.alexscode.teaching;
 import com.alexscode.teaching.tap.*;
 
 import java.sql.SQLNonTransientException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -64,6 +65,13 @@ public class Main {
 
     }
 
+    private static void runTimedTest(TAPSolver smallMediumSolver, TAPSolver bigSolver, Instance inst)
+    {
+      if(inst.getSize() > 250)
+        runTimedTest(bigSolver, inst);
+      else
+        runTimedTest(smallMediumSolver, inst);
+    }
     private static void runTimedTest(TAPSolver solver, Instance inst)
     {     
       Objectives obj         = new Objectives(inst);
@@ -99,10 +107,26 @@ public class Main {
         Instance f1_9_big      = Instance.readFile("./instances/f1_tap_9_400.dat", 6600, 540);
         Instance tap_14_big    = Instance.readFile("./instances/tap_14_400.dat",   6600, 540);
 
-        TAPSolver solver = new Branch();
-        Instance  inst   = f1_9_big;
+        TAPSolver smallMediumSolver = new Branch();
+        TAPSolver bigSolver         = new NearestNeighbor();
         
-        runTimedTest(solver, inst);
+        List<Instance> instances = new ArrayList<>();
+        instances.add(f4_small);        
+        instances.add(tap_15_small);
+        instances.add(tap_10_medium);
+        instances.add(tap_11_medium);
+        instances.add(tap_13_medium);
+        instances.add(f4_1_big);
+        instances.add(f4_4_big);
+        instances.add(f1_3_big);
+        instances.add(f1_9_big);
+        instances.add(tap_14_big);
+
+        long before = System.currentTimeMillis();
+        for(Instance inst : instances)
+          runTimedTest(smallMediumSolver, bigSolver, inst);
+        long after = System.currentTimeMillis();
+        System.out.println("Exécution totale des instances : " + (after - before) + "ms");
         
         //int       nTests = 1;
         //runTests(solver, inst, nTests);
