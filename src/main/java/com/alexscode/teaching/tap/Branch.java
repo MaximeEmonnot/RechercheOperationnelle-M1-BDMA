@@ -6,43 +6,68 @@ import java.util.TreeSet;
 
 public class Branch implements TAPSolver
 {
+  private static interface Operator
+  {
+    public double run(double distance, double cost, double interest);
+  }
+
   @Override
   public List<Integer> solve(Instance ist) {
     Objectives obj = new Objectives(ist);
     List<Integer> output = new ArrayList<>();
 
-    double[][] ratios = new double[ist.size][ist.size];
-    for(int i = 0; i < ist.size; i++)
-      for(int j = 0; j < ist.size; j++)
-        ratios[i][j] = ist.distances[i][j] * ist.costs[j] / (ist.interest[j] * ist.interest[j]); 
+    List<Operator> operators = new ArrayList<>();
+    operators.add((distance, cost, interest) -> { return      distance     /        interest;});
+    operators.add((distance, cost, interest) -> { return      cost         /        interest;});
+    operators.add((distance, cost, interest) -> { return  distance * cost  /        interest;});
+    operators.add((distance, cost, interest) -> { return      distance     / (interest * interest);});
+    operators.add((distance, cost, interest) -> { return      cost         / (interest * interest);});
+    operators.add((distance, cost, interest) -> { return (distance * cost) / (interest * interest);});
     
-    while(obj.time(output) < ist.timeBudget && obj.distance(output) < ist.maxDistance)
+    double highestInterest = Double.MIN_NORMAL;
+
+    for(Operator o : operators)
     {
-      double lowerBound = calculateLowerBound(ist, obj, ratios, output);
-      int    index      = -1;
+      double[][] ratios = new double[ist.size][ist.size];
       for(int i = 0; i < ist.size; i++)
+        for(int j = 0; j < ist.size; j++)
+          ratios[i][j] = o.run(ist.distances[i][j], ist.costs[j], ist.interest[j]);
+      
+      List<Integer> sequence = new ArrayList<>();
+
+      while(obj.time(sequence) < ist.timeBudget && obj.distance(sequence) < ist.maxDistance)
       {
-        if(!output.contains(i))
+        double lowerBound = calculateLowerBound(ist, obj, ratios, sequence);
+        int    index      = -1;
+        for(int i = 0; i < ist.size; i++)
         {
-          List<Integer> sequence = new ArrayList<Integer>(output);
-          sequence.add(i);
-          double nextLowerBound = calculateLowerBound(ist, obj, ratios, sequence);
-          if(nextLowerBound >= lowerBound)
+          if(!sequence.contains(i))
           {
-            lowerBound = nextLowerBound;
-            index = i;
+            List<Integer> seqTest = new ArrayList<Integer>(sequence);
+            seqTest.add(i);
+            double nextLowerBound = calculateLowerBound(ist, obj, ratios, seqTest);
+            if(nextLowerBound >= lowerBound)
+            {
+              lowerBound = nextLowerBound;
+              index = i;
+            }
           }
         }
+        if(index >= 0)
+          sequence.add(index);
+        else break;
       }
-      if (index >= 0)
-        output.add(index);
-      else break;
+      sequence = sequence.subList(0, sequence.size() - 1);
+      if(obj.interest(sequence) > highestInterest)
+      {
+        highestInterest = obj.interest(sequence);
+        output          = new ArrayList<>(sequence);
+      }
     }
-    
-    return output.subList(0, output.size() - 1);
+    return output;
   }
 
-  private double calculateLowerBound(Instance ist, Objectives obj,  double[][] ratios, List<Integer> startingSequence)
+  private List<Integer> bestRatioSequence(Instance ist, Objectives obj, double[][] ratios, List<Integer> startingSequence)
   {
     List<Integer> sequence = new ArrayList<>(startingSequence);
 
@@ -87,7 +112,11 @@ public class Branch implements TAPSolver
 
       sequence.add(bestIndex);
     }
+    return sequence.subList(0, sequence.size() - 1);
+  }
 
-    return obj.interest(sequence.subList(0, sequence.size() - 1));
+  private double calculateLowerBound(Instance ist, Objectives obj,  double[][] ratios, List<Integer> startingSequence)
+  {
+    return obj.interest(bestRatioSequence(ist, obj, ratios, startingSequence));
   }
 }
