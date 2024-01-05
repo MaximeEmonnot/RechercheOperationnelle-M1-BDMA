@@ -14,7 +14,7 @@ public class Branch implements TAPSolver
     double[][] ratios = new double[ist.size][ist.size];
     for(int i = 0; i < ist.size; i++)
       for(int j = 0; j < ist.size; j++)
-        ratios[i][j] = (ist.distances[i][j] * ist.costs[j]) / ist.interest[j]; 
+        ratios[i][j] = ist.distances[i][j] * ist.costs[j] / (ist.interest[j] * ist.interest[j]); 
     
     while(obj.time(output) < ist.timeBudget && obj.distance(output) < ist.maxDistance)
     {

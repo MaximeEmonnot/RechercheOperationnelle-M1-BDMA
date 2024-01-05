@@ -5,48 +5,66 @@ import java.util.List;
 
 public class NearestNeighbor implements TAPSolver {
 
+  private static interface Operator
+  {
+    public double run(double distance, double cost, double interest);
+  }
+
     @Override
     public List<Integer> solve(Instance ist) {
         Objectives obj = new Objectives(ist);
         List<Integer> output = new ArrayList<>();
 
-        // Indices des "noeuds" non-visités
-        List<String> unvisitedIndices = new ArrayList<>();
-        for(int i = 0; i < ist.size; i++)
-            unvisitedIndices.add(Integer.toString(i));
-
-        // Sélection du premier "noeud"
-        String node = unvisitedIndices.get((int)(Math.random() * ist.size));
-        output.add(Integer.parseInt(node));
-        unvisitedIndices.remove(node);
-
-        // Exécution de la boucle
-        while(!unvisitedIndices.isEmpty() 
-        &&   (obj.time(output) < ist.timeBudget && obj.distance(output) < ist.maxDistance))
-        {
-            String nearestNode = new String();
-            double nearestRatio = Double.MAX_VALUE;
-            
-            for(String indexStr : unvisitedIndices)
-            {
-                int index = Integer.parseInt(indexStr);
-                int currentIndex = Integer.parseInt(node);
-
-                double ratio = ist.distances[currentIndex][index] / ist.interest[index];
+        List<Operator> operators = new ArrayList<>();
+        operators.add((distance, cost, interest) -> { return      distance     /        interest;});
+        operators.add((distance, cost, interest) -> { return      cost         /        interest;});
+        operators.add((distance, cost, interest) -> { return  distance * cost  /        interest;});
+        operators.add((distance, cost, interest) -> { return      distance     / (interest * interest);});
+        operators.add((distance, cost, interest) -> { return      cost         / (interest * interest);});
+        operators.add((distance, cost, interest) -> { return (distance * cost) / (interest * interest);});
         
-                if(ratio < nearestRatio)
+        double highestInterest = Double.MIN_VALUE;
+        for(Operator o : operators)
+        {
+          // Calcul des ratios (On souhaite le ratio le plus petit)
+          double[][] ratios = new double[ist.size][ist.size];
+          for(int i = 0; i < ist.size; i++)
+            for(int j = 0; j < ist.size; j++)
+              ratios[i][j] = o.run(ist.distances[i][j], ist.costs[j], ist.interest[j]); 
+    
+          for(int n = 0; n < ist.size; n++)
+          {
+            List<Integer> sequence = new ArrayList<>();
+
+            sequence.add(n);
+            // Boucle d'exécution
+            while(obj.distance(sequence) < ist.maxDistance && obj.time(sequence) < ist.timeBudget)
+            {
+              double lowestRatio = Double.MAX_VALUE;
+              int    bestIndex   = 0;
+              for(int i = 0; i < ist.size; i++)
+              {
+                if(sequence.get(sequence.size() - 1) != i && !sequence.contains(i))
                 {
-                    nearestRatio = ratio;
-                    nearestNode = indexStr;
+                  double ratio = ratios[sequence.get(sequence.size() - 1)][i];
+                  if(ratio < lowestRatio)
+                  {
+                    bestIndex   = i;
+                    lowestRatio = ratio;
+                  }
                 }
+              }
+              sequence.add(bestIndex);
             }
-
-            output.add(Integer.parseInt(nearestNode));
-            unvisitedIndices.remove(nearestNode);
-            node = nearestNode;
+            sequence = sequence.subList(0, sequence.size() - 1);
+            if(obj.interest(sequence) >= highestInterest)
+            {
+              highestInterest = obj.interest(sequence);
+              output = new ArrayList<>(sequence);
+            }
+          }
         }
-
-        return output.subList(0, output.size() - 1);
+        return output;
     }
     
 }

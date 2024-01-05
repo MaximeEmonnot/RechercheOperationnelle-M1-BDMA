@@ -99,8 +99,8 @@ public class Main {
         Instance f1_9_big      = Instance.readFile("./instances/f1_tap_9_400.dat", 6600, 540);
         Instance tap_14_big    = Instance.readFile("./instances/tap_14_400.dat",   6600, 540);
 
-        TAPSolver solver = new Branch();
-        Instance  inst   = f4_4_big;
+        TAPSolver solver = new NearestNeighbor();
+        Instance  inst   = tap_15_small;
         
         runTimedTest(solver, inst);
         
