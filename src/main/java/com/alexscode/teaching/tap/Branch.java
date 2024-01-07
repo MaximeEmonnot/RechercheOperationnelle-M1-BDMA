@@ -2,7 +2,6 @@ package com.alexscode.teaching.tap;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.TreeSet;
 
 public class Branch implements TAPSolver
 {
@@ -12,7 +11,8 @@ public class Branch implements TAPSolver
   }
 
   @Override
-  public List<Integer> solve(Instance ist) {
+  public List<Integer> solve(Instance ist) 
+  {
     Objectives obj = new Objectives(ist);
     List<Integer> output = new ArrayList<>();
 
@@ -53,9 +53,7 @@ public class Branch implements TAPSolver
             }
           }
         }
-        if(index >= 0)
-          sequence.add(index);
-        else break;
+        if(index >= 0) sequence.add(index);
       }
       sequence = sequence.subList(0, sequence.size() - 1);
       if(obj.interest(sequence) > highestInterest)
@@ -67,7 +65,7 @@ public class Branch implements TAPSolver
     return output;
   }
 
-  private List<Integer> bestRatioSequence(Instance ist, Objectives obj, double[][] ratios, List<Integer> startingSequence)
+  private List<Integer> bestRatioFirstSequence(Instance ist, Objectives obj, double[][] ratios, List<Integer> startingSequence)
   {
     List<Integer> sequence = new ArrayList<>(startingSequence);
 
@@ -79,9 +77,7 @@ public class Branch implements TAPSolver
       if(sequence.isEmpty())
       {
         for(int i = 0; i < ist.size; i++)
-        {
           for(int j = 0; j < ist.size; j++)
-          {
             if(i != j)
             {
               double ratio = ratios[i][j];
@@ -91,13 +87,9 @@ public class Branch implements TAPSolver
                 lowestRatio = ratio;
               }
             }
-          }
-        }
       }
       else
-      {
         for(int i = 0; i < ist.size; i++)
-        {
           if(sequence.get(sequence.size() - 1) != i && !sequence.contains(i))
           {
             double ratio = ratios[sequence.get(sequence.size() - 1)][i];
@@ -107,16 +99,14 @@ public class Branch implements TAPSolver
               lowestRatio = ratio;
             }
           }
-        }
-      }
 
       sequence.add(bestIndex);
     }
     return sequence.subList(0, sequence.size() - 1);
   }
 
-  private double calculateLowerBound(Instance ist, Objectives obj,  double[][] ratios, List<Integer> startingSequence)
+  private double calculateLowerBound(Instance ist, Objectives obj, double[][] ratios, List<Integer> startingSequence)
   {
-    return obj.interest(bestRatioSequence(ist, obj, ratios, startingSequence));
+    return obj.interest(bestRatioFirstSequence(ist, obj, ratios, startingSequence));
   }
 }

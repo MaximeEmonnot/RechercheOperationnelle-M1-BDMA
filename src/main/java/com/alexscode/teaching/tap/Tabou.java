@@ -1,6 +1,5 @@
 package com.alexscode.teaching.tap;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -39,12 +38,12 @@ public class Tabou implements TAPSolver{
   }
 
   private List<Integer> generateInitialSolution(Instance ist) {
-    TAPSolver solver = new NearestNeighbor();
+    TAPSolver solver = new BestRatioFirst();
     return solver.solve(ist);
 }
 
 private List<Integer> findBestNeighbor(List<Integer> solution, List<ReversiblePair<Integer, Integer>> tabuList, Objectives obj, Instance ist) {
-    TAPSolver solver = new NearestNeighbor();
+    TAPSolver solver = new BestRatioFirst();
 
     int oldindex = 0;
     int newindex = 0;
