@@ -1,11 +1,13 @@
 package com.alexscode.teaching.tap;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import com.alexscode.teaching.utilities.Pair;
-
+/**
+ * Algorithme Recuit Simulé
+ * Rapidement abandonné en raison de résultats peu concluants et d'une exécution trop lente
+ * @author Maxime Emonnot
+ */
 public class SimulatedAnnealing implements TAPSolver
 {
   @Override

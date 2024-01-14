@@ -7,10 +7,23 @@ import java.util.List;
 import java.util.TreeSet;
 
 public class Main {
+    /**
+     * Permet l'exécution d'un test, avec affichage des résultats
+     * @param  solver Algorithme de résolution
+     * @param  inst   Instance de requêtes à résoudre
+     * @author        Maxime Emonnot
+     */
     private static void runTest(TAPSolver solver, Instance inst)
     {
       runTests(solver, inst, 1);
     }
+    /**
+     * Permet l'exécution de N test, avec affichage des résultats
+     * @param  solver Algorithme de résolution
+     * @param  inst   Instance de requêtes à résoudre
+     * @param  nTests Nombre de tests réalisés
+     * @author        Maxime Emonnot
+     */
     private static void runTests(TAPSolver solver, Instance inst, int nTests)
     {
       Objectives obj = new Objectives(inst);
@@ -64,6 +77,14 @@ public class Main {
 
     }
 
+    /**
+     * Permet l'exécution d'un test chronométré, avec affichage des résultats et du temps d'exécution
+     * Utilise deux algorithmes : l'un pour les instances de petite et moyenne taille, l'autre pour les instances de grande taille
+     * @param  smallMediumSolver Algorithme de résolution des instances de petite et moyenne taille
+     * @param  bigSolver         Algorithme de résolution des instances de grande taille
+     * @param  inst              Instance de requêtes à résoudre
+     * @author                   Maxime Emonnot
+     */
     private static void runTimedTest(TAPSolver smallMediumSolver, TAPSolver bigSolver, Instance inst)
     {
       if(inst.getSize() > 250)
@@ -71,6 +92,12 @@ public class Main {
       else
         runTimedTest(smallMediumSolver, inst);
     }
+    /**
+     * Permet l'exécution d'un test chronométré, avec affichage des résultats et du temps d'exécution
+     * @param  solver Algorithme de résolution
+     * @param  inst   Instance de requêtes à résoudre
+     * @author        Maxime Emonnot
+     */
     private static void runTimedTest(TAPSolver solver, Instance inst)
     {     
       Objectives obj         = new Objectives(inst);
@@ -92,6 +119,15 @@ public class Main {
       System.out.println("===========================================================================================");
     }
 
+        /**
+     * Permet l'exécution de N tests chronométrés, avec affichage des résultats et du temps d'exécution
+     * Utilise deux algorithmes : l'un pour les instances de petite et moyenne taille, l'autre pour les instances de grande taille
+     * @param  smallMediumSolver Algorithme de résolution des instances de petite et moyenne taille
+     * @param  bigSolver         Algorithme de résolution des instances de grande taille
+     * @param  inst              Instance de requêtes à résoudre
+     * @param  nTests            Nombre de tests réalisés
+     * @author                   Maxime Emonnot
+     */
     private static void runTimedTests(TAPSolver smallMediumSolver, TAPSolver bigSolver, Instance inst, int nTests)
     {
       if(inst.getSize() > 250) 
@@ -99,6 +135,13 @@ public class Main {
       else
         runTimedTests(smallMediumSolver, inst, nTests);
     }
+    /**
+     * Permet l'exécution de N tests chronométrés, avec affichage des résultats et du temps d'exécution
+     * @param  solver Algorithme de résolution
+     * @param  inst   Instance de requêtes à résoudre
+     * @param  nTests Nombre de tests réalisés
+     * @author        Maxime Emonnot
+     */
     private static void runTimedTests(TAPSolver solver, Instance inst, int nTests)
     {      
       Objectives obj  = new Objectives(inst);
@@ -138,18 +181,18 @@ public class Main {
 
     public static void main(String[] args) {
         // Instances de petite taille
-        Instance f4_small      = Instance.readFile("./instances/f4_tap_0_20.dat",   330,  27);
-        Instance tap_15_small  = Instance.readFile("./instances/tap_15_60.dat",     330,  27);
+        Instance       f4_small          = Instance.readFile("./instances/f4_tap_0_20.dat",   330,  27);
+        Instance       tap_15_small      = Instance.readFile("./instances/tap_15_60.dat",     330,  27);
         // Instances de taille moyenne
-        Instance tap_10_medium = Instance.readFile("./instances/tap_10_100.dat",   1200, 150);
-        Instance tap_11_medium = Instance.readFile("./instances/tap_11_250.dat",   1200, 250);
-        Instance tap_13_medium = Instance.readFile("./instances/tap_13_150.dat",   1200, 150);
+        Instance       tap_10_medium     = Instance.readFile("./instances/tap_10_100.dat",   1200, 150);
+        Instance       tap_11_medium     = Instance.readFile("./instances/tap_11_250.dat",   1200, 250);
+        Instance       tap_13_medium     = Instance.readFile("./instances/tap_13_150.dat",   1200, 150);
         // Instances de grande taille
-        Instance f4_1_big      = Instance.readFile("./instances/f4_tap_1_400.dat", 6600, 540);
-        Instance f4_4_big      = Instance.readFile("./instances/f4_tap_4_400.dat", 6600, 540);
-        Instance f1_3_big      = Instance.readFile("./instances/f1_tap_3_400.dat", 6600, 540);
-        Instance f1_9_big      = Instance.readFile("./instances/f1_tap_9_400.dat", 6600, 540);
-        Instance tap_14_big    = Instance.readFile("./instances/tap_14_400.dat",   6600, 540);
+        Instance       f4_1_big          = Instance.readFile("./instances/f4_tap_1_400.dat", 6600, 540);
+        Instance       f4_4_big          = Instance.readFile("./instances/f4_tap_4_400.dat", 6600, 540);
+        Instance       f1_3_big          = Instance.readFile("./instances/f1_tap_3_400.dat", 6600, 540);
+        Instance       f1_9_big          = Instance.readFile("./instances/f1_tap_9_400.dat", 6600, 540);
+        Instance       tap_14_big        = Instance.readFile("./instances/tap_14_400.dat",   6600, 540);
 
         // Définition des paramètres de test
         TAPSolver      smallMediumSolver = new Branch();

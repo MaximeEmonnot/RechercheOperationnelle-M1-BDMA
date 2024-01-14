@@ -43,7 +43,7 @@ public class Tabou implements TAPSolver{
 }
 
 private List<Integer> findBestNeighbor(List<Integer> solution, List<ReversiblePair<Integer, Integer>> tabuList, Objectives obj, Instance ist) {
-    TAPSolver solver = new BestRatioFirst();
+    //TAPSolver solver = new BestRatioFirst();
 
     int oldindex = 0;
     int newindex = 0;
@@ -82,5 +82,3 @@ private List<Integer> findBestNeighbor(List<Integer> solution, List<ReversiblePa
   return bestNeighbor;
 }
 }
-
-
