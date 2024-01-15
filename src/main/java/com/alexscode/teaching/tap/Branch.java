@@ -49,7 +49,7 @@ public class Branch implements TAPSolver
       List<Integer> sequence = new ArrayList<>();
 
       /*
-       * Boucle d'exécution : On parcourt un ensemble de situations où l'on ajoute une certaine à une liste de requêtes.
+       * Boucle d'exécution : On parcourt un ensemble de situations où l'on ajoute une certaine requête à une liste de requêtes.
        * Pour chaque étape, on calcule la borne inférieure des étapes filles pour n'en retenir que la meilleure.
        */
       while(obj.time(sequence) < ist.timeBudget && obj.distance(sequence) < ist.maxDistance)

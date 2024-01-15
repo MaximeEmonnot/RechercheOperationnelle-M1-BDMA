@@ -5,8 +5,17 @@ import java.util.List;
 
 import com.alexscode.teaching.utilities.ReversiblePair;
 
+  /**
+   * Heuristique permettant de parcourir l'instance selon le plus proche voisin,
+   * mais en s'autorisant une liberté de prendre des voisins défavorables à 
+   * l'objectif initial ("évite les extremum locaux") durant un certains nombre 
+   * d'itération.
+   * Abandonné au profit d'algorithme plus efficaces. 
+   * @author Vincent Leconte 
+   */
 public class Tabou implements TAPSolver{
   @Override
+
   public List<Integer> solve(Instance ist) {
     Objectives obj = new Objectives(ist);
     List<Integer> currentSolution = generateInitialSolution(ist);
